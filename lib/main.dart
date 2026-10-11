@@ -1,13 +1,14 @@
+import 'package:aplikasikuis/providers/app_provider.dart';
+import 'package:aplikasikuis/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'providers/quiz_provider.dart';
-import 'screens/home_screen.dart';
 
 void main() {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => QuizProvider()),
+        ChangeNotifierProvider(create: (_) => AppProvider()),
       ],
       child: const KuisApp(),
     ),
@@ -36,7 +37,7 @@ class KuisApp extends StatelessWidget {
         primarySwatch: Colors.blueGrey,
         fontFamily: 'EduQLDHand',
       ),
-      home: const HomeScreen(),
+      home: const LoginScreen(),
     );
   }
 }
