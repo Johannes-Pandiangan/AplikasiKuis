@@ -1,80 +1,65 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../providers/quiz_provider.dart';
-import '../widgets/custom_button.dart';
+import '../providers/app_provider.dart';
 import 'quiz_screen.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  final TextEditingController _nameController = TextEditingController();
-
-  @override
   Widget build(BuildContext context) {
-    final quizProvider = context.read<QuizProvider>();
+    // Data dummy untuk topik
+    final List<Map<String, dynamic>> topics = [
+      {'name': 'Matematika', 'icon': Icons.calculate, 'color': Colors.blue},
+      {'name': 'Umum', 'icon': Icons.public, 'color': Colors.orange},
+      {'name': 'Olahraga', 'icon': Icons.sports_soccer, 'color': Colors.green},
+      {'name': 'Bahasa Indonesia', 'icon': Icons.menu_book, 'color': Colors.red},
+    ];
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Selamat Datang"),
-        actions: [
-          IconButton(
-            icon: Icon(
-              context.watch<QuizProvider>().isDarkMode
-                  ? Icons.dark_mode
-                  : Icons.light_mode,
-            ),
-            onPressed: () {
-              quizProvider.toggleTheme();
-            },
-          )
-        ],
+        title: const Text('Pilih Topik Kuis'),
+        automaticallyImplyLeading: false,
       ),
-      body: Center(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset('assets/images/logo.png', height: 150),
-              const SizedBox(height: 30),
-              const Text(
-                "Masukkan Nama Anda",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 15),
-              TextField(
-                controller: _nameController,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  hintText: "Nama Pengguna",
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: GridView.builder(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            crossAxisSpacing: 16,
+            mainAxisSpacing: 16,
+          ),
+          itemCount: topics.length,
+          itemBuilder: (context, index) {
+            return InkWell(
+              onTap: () {
+                if (topics[index]['name'] == 'Matematika') {
+                  context.read<AppProvider>().startQuiz('Matematika');
+                  Navigator.push(context, MaterialPageRoute(builder: (_) => const QuizScreen()));
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Topik ini masih dikembangkan')),
+                  );
+                }
+              },
+              child: Card(
+                color: topics[index]['color'],
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(topics[index]['icon'], size: 50, color: Colors.white),
+                    const SizedBox(height: 10),
+                    Text(
+                      topics[index]['name'],
+                      style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
                 ),
               ),
-              const SizedBox(height: 30),
-              CustomButton(
-                text: "Mulai Kuis",
-                onPressed: () {
-                  if (_nameController.text.trim().isNotEmpty) {
-                    quizProvider.setUserName(_nameController.text.trim());
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const QuizScreen()),
-                    );
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text("Nama tidak boleh kosong!")),
-                    );
-                  }
-                },
-              ),
-            ],
-          ),
+            );
+          },
         ),
       ),
     );
