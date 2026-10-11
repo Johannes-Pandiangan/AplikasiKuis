@@ -1,8 +1,7 @@
-import 'package:aplikasikuis/providers/app_provider.dart';
-import 'package:aplikasikuis/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'providers/quiz_provider.dart';
+import 'providers/app_provider.dart';
+import 'screens/login_screen.dart';
 
 void main() {
   runApp(
@@ -20,13 +19,12 @@ class KuisApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final quizProvider = context.watch<QuizProvider>();
+    final appProvider = context.watch<AppProvider>();
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Aplikasi Kuis PM',
-      // Menerapkan dual-theme (Dark and Light Mode)
-      themeMode: quizProvider.isDarkMode ? ThemeMode.dark : ThemeMode.light,
+      themeMode: appProvider.isDarkMode ? ThemeMode.dark : ThemeMode.light,
       theme: ThemeData(
         brightness: Brightness.light,
         primarySwatch: Colors.blue,

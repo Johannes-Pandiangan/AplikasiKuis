@@ -4,7 +4,7 @@ import '../providers/app_provider.dart';
 import '../widgets/custom_button.dart';
 import '../widgets/custom_textfield.dart';
 import 'register_screen.dart';
-import 'home_screen.dart';
+import 'main_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -28,7 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
     final success = context.read<AppProvider>().login(email, pass);
     if (success) {
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const HomeScreen()));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const MainScreen()));
     } else {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Email atau Password salah!")));
     }
