@@ -16,12 +16,16 @@ class CustomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
 
+    Color buttonColor = color ?? Theme.of(context).colorScheme.primary;
+    Color textColor = buttonColor == Colors.green ? Colors.white : Colors.black;
+
     return SizedBox(
-      width: screenWidth * 0.8, // Lebar tombol 80% dari lebar layar
+      width: screenWidth * 0.8,
       height: 50,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: color ?? Theme.of(context).primaryColor,
+          backgroundColor: buttonColor,
+          foregroundColor: textColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
@@ -29,10 +33,10 @@ class CustomButton extends StatelessWidget {
         onPressed: onPressed,
         child: Text(
           text,
-          style: const TextStyle(
-            fontSize: 16,
+          style: TextStyle(
+            fontSize: 18,
             fontWeight: FontWeight.bold,
-            color: Colors.white,
+            color: textColor,
           ),
         ),
       ),

@@ -20,11 +20,12 @@ class QuizScreen extends StatelessWidget {
           onPressed: () => _showExitDialog(context),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
             Text(
               "Pertanyaan ${provider.currentQuestionIndex + 1} / ${provider.activeQuestions.length}",
               style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
@@ -39,18 +40,19 @@ class QuizScreen extends StatelessWidget {
                 ),
               ),
             ),
-            ...List.generate(currentQ.options.length, (index) {
-              // Mengecek apakah opsi ini adalah jawaban yang sudah dipilih sebelumnya
-              bool isSelected = currentQ.selectedAnswerIndex == index;
-              return Padding(
-                padding: const EdgeInsets.only(bottom: 12.0),
-                child: CustomButton(
-                  text: currentQ.options[index],
-                  color: isSelected ? Colors.green : Theme.of(context).primaryColor,
-                  onPressed: () => provider.selectAnswer(index),
-                ),
-              );
-            }),
+                ...List.generate(currentQ.options.length, (index) {
+                  // Mengecek apakah opsi ini adalah jawaban yang sudah dipilih sebelumnya
+                  bool isSelected = currentQ.selectedAnswerIndex == index;
+
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 12.0),
+                    child: CustomButton(
+                      text: currentQ.options[index],
+                      color: isSelected ? Colors.green : null,
+                      onPressed: () => provider.selectAnswer(index),
+                    ),
+                  );
+                }),
             const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -85,6 +87,7 @@ class QuizScreen extends StatelessWidget {
           ],
         ),
       ),
+    ),
     );
   }
 
@@ -99,7 +102,7 @@ class QuizScreen extends StatelessWidget {
           TextButton(
             onPressed: () {
               Navigator.pop(ctx);
-              Navigator.pop(context); // Kembali ke MainScreen
+              Navigator.pop(context);
             },
             child: const Text("Keluar", style: TextStyle(color: Colors.red)),
           ),
