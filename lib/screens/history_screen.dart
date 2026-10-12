@@ -7,7 +7,6 @@ class HistoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Membaca data riwayat dari provider (sudah terurut dari yang terbaru)
     final history = context.watch<AppProvider>().quizHistory;
 
     return Scaffold(

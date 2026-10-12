@@ -53,7 +53,18 @@ class _LoginScreenState extends State<LoginScreen> {
               CustomButton(text: "LOGIN", onPressed: _login),
               TextButton(
                 onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const RegisterScreen())),
-                child: const Text("Belum punya akun? Daftar di sini"),
+                child: RichText(
+                  text: TextSpan(
+                    style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontFamily: 'EduQLDHand', fontSize: 16),
+                    children: const [
+                      TextSpan(text: "Belum punya akun? "),
+                      TextSpan(
+                        text: "Daftar di sini",
+                        style: TextStyle(fontWeight: FontWeight.bold, decoration: TextDecoration.underline),
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ],
           ),

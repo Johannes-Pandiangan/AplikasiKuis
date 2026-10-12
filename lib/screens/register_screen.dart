@@ -59,6 +59,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
             CustomTextField(controller: _confirmPassController, hintText: "Konfirmasi Password", icon: Icons.lock_outline, isPassword: true),
             const SizedBox(height: 20),
             CustomButton(text: "DAFTAR", onPressed: _register),
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: RichText(
+                text: TextSpan(
+                  style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontFamily: 'EduQLDHand', fontSize: 16),
+                  children: const [
+                    TextSpan(text: "Sudah punya akun? "),
+                    TextSpan(
+                      text: "Login",
+                      style: TextStyle(fontWeight: FontWeight.bold, decoration: TextDecoration.underline),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
       ),
