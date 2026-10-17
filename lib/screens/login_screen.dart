@@ -17,20 +17,28 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passController = TextEditingController();
 
+  String? _emailError;
+  String? _passError;
+
   void _login() {
     final email = _emailController.text.trim();
     final pass = _passController.text.trim();
 
-    if (email.isEmpty || pass.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Email dan Password harus diisi!")));
-      return;
-    }
+    setState(() {
+      _emailError = email.isEmpty ? "Email harus diisi" : null;
+      _passError = pass.isEmpty ? "Password harus diisi" : null;
+    });
+
+    if (_emailError != null || _passError != null) return;
 
     final success = context.read<AppProvider>().login(email, pass);
     if (success) {
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const MainScreen()));
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Email atau Password salah!")));
+      setState(() {
+        _emailError = "Email salah";
+        _passError = "Password salah";
+      });
     }
   }
 
@@ -47,8 +55,19 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(height: 20),
               const Text("Masuk ke Akun Anda", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
               const SizedBox(height: 30),
-              CustomTextField(controller: _emailController, hintText: "Email", icon: Icons.email),
-              CustomTextField(controller: _passController, hintText: "Password", icon: Icons.lock, isPassword: true),
+              CustomTextField(
+                controller: _emailController,
+                hintText: "Email",
+                icon: Icons.email,
+                errorText: _emailError,
+              ),
+              CustomTextField(
+                controller: _passController,
+                hintText: "Password",
+                icon: Icons.lock,
+                isPassword: true,
+                errorText: _passError,
+              ),
               const SizedBox(height: 20),
               CustomButton(text: "LOGIN", onPressed: _login),
               TextButton(
