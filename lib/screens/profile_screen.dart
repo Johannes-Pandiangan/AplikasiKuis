@@ -19,11 +19,21 @@ class ProfileScreen extends StatelessWidget {
         title: const Text("Konfirmasi Keluar"),
         content: const Text("Apakah Anda yakin ingin keluar dari akun ini?"),
         actions: [
-          TextButton(
+          ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFFFFCA08),
+                foregroundColor: Colors.black,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+              ),
               onPressed: () => Navigator.pop(ctx),
-              child: const Text("Batal")
+              child: const Text("Batal", style: TextStyle(fontWeight: FontWeight.bold))
           ),
-          TextButton(
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.red,
+              foregroundColor: Colors.white,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            ),
             onPressed: () {
               Navigator.pop(ctx);
               context.read<AppProvider>().logout();
@@ -33,7 +43,7 @@ class ProfileScreen extends StatelessWidget {
                     (route) => false,
               );
             },
-            child: const Text("Keluar", style: TextStyle(color: Colors.red)),
+            child: const Text("Keluar", style: TextStyle(fontWeight: FontWeight.bold)),
           ),
         ],
       ),

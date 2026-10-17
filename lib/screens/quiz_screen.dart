@@ -20,74 +20,84 @@ class QuizScreen extends StatelessWidget {
           onPressed: () => _showExitDialog(context),
         ),
       ),
-        body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-            Text(
-              "Pertanyaan ${provider.currentQuestionIndex + 1} / ${provider.activeQuestions.length}",
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-            ),
-            const SizedBox(height: 20),
-            Expanded(
-              child: Center(
-                child: Text(
-                  currentQ.questionText,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                ),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text(
+                "Pertanyaan ${provider.currentQuestionIndex + 1} / ${provider.activeQuestions.length}",
+                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
               ),
-            ),
-                ...List.generate(currentQ.options.length, (index) {
-                  // Mengecek apakah opsi ini adalah jawaban yang sudah dipilih sebelumnya
-                  bool isSelected = currentQ.selectedAnswerIndex == index;
-
-                  return Padding(
-                    padding: const EdgeInsets.only(bottom: 12.0),
-                    child: CustomButton(
-                      text: currentQ.options[index],
-                      color: isSelected ? Colors.green : null,
-                      onPressed: () => provider.selectAnswer(index),
-                    ),
-                  );
-                }),
-            const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                // Tombol Kembali hanya muncul jika bukan pertanyaan pertama
-                provider.currentQuestionIndex > 0
-                    ? ElevatedButton(
-                  onPressed: () => provider.previousQuestion(),
-                  child: const Text("Kembali"),
-                )
-                    : const SizedBox.shrink(),
-
-                // Tombol Selanjutnya / Selesai
-                ElevatedButton(
-                  // Tombol dinonaktifkan (null) jika pengguna belum memilih jawaban
-                  onPressed: currentQ.selectedAnswerIndex != null
-                      ? () {
-                    if (provider.currentQuestionIndex == provider.activeQuestions.length - 1) {
-                      provider.calculateAndSaveScore();
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const ResultScreen()));
-                    } else {
-                      provider.nextQuestion();
-                    }
-                  }
-                      : null,
+              const SizedBox(height: 20),
+              Expanded(
+                child: Center(
                   child: Text(
-                    provider.currentQuestionIndex == provider.activeQuestions.length - 1 ? "Selesai" : "Selanjutnya",
+                    currentQ.questionText,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                   ),
                 ),
-              ],
-            )
-          ],
+              ),
+              ...List.generate(currentQ.options.length, (index) {
+                bool isSelected = currentQ.selectedAnswerIndex == index;
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 12.0),
+                  child: CustomButton(
+                    text: currentQ.options[index],
+                    color: isSelected ? Colors.green : null,
+                    onPressed: () => provider.selectAnswer(index),
+                  ),
+                );
+              }),
+              const SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  // Tombol Kembali
+                  provider.currentQuestionIndex > 0
+                      ? ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFFFFCA08),
+                      foregroundColor: Colors.black,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                    ),
+                    onPressed: () => provider.previousQuestion(),
+                    child: const Text("Kembali", style: TextStyle(fontWeight: FontWeight.bold)),
+                  )
+                      : const SizedBox.shrink(),
+
+                  // Tombol Selanjutnya / Selesai
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFFFFCA08),
+                      foregroundColor: Colors.black,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                    ),
+                    onPressed: currentQ.selectedAnswerIndex != null
+                        ? () {
+                      if (provider.currentQuestionIndex == provider.activeQuestions.length - 1) {
+                        provider.calculateAndSaveScore();
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const ResultScreen()));
+                      } else {
+                        provider.nextQuestion();
+                      }
+                    }
+                        : null,
+                    child: Text(
+                      provider.currentQuestionIndex == provider.activeQuestions.length - 1 ? "Selesai" : "Selanjutnya",
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ],
+              )
+            ],
+          ),
         ),
       ),
-    ),
     );
   }
 
@@ -98,13 +108,26 @@ class QuizScreen extends StatelessWidget {
         title: const Text("Keluar Kuis?"),
         content: const Text("Progres Anda pada kuis ini akan hilang."),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(ctx), child: const Text("Batal")),
-          TextButton(
+          ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFFFFCA08),
+                foregroundColor: Colors.black,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+              ),
+              onPressed: () => Navigator.pop(ctx),
+              child: const Text("Batal", style: TextStyle(fontWeight: FontWeight.bold))
+          ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.red,
+              foregroundColor: Colors.white,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            ),
             onPressed: () {
               Navigator.pop(ctx);
               Navigator.pop(context);
             },
-            child: const Text("Keluar", style: TextStyle(color: Colors.red)),
+            child: const Text("Keluar", style: TextStyle(fontWeight: FontWeight.bold)),
           ),
         ],
       ),
