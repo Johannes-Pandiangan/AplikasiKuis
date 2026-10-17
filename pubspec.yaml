@@ -29,8 +29,8 @@ flutter:
 
 
   fonts:
-    - family: EduQLDHand
+    - family: PlayfairDisplay
       fonts:
-        - asset: assets/fonts/EduQLDHand-Regular.ttf
-        - asset: assets/fonts/EduQLDHand-Bold.ttf
+        - asset: assets/fonts/PlayfairDisplay-Regular.ttf
+        - asset: assets/fonts/PlayfairDisplay-Bold.ttf
           weight: 700

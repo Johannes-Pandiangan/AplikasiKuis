@@ -6,6 +6,40 @@ import 'login_screen.dart';
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
+  void _showDevelopmentNotice(BuildContext context) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text("Fitur ini masih dikembangkan")),
+    );
+  }
+
+  void _showLogoutDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text("Konfirmasi Keluar"),
+        content: const Text("Apakah Anda yakin ingin keluar dari akun ini?"),
+        actions: [
+          TextButton(
+              onPressed: () => Navigator.pop(ctx),
+              child: const Text("Batal")
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.pop(ctx);
+              context.read<AppProvider>().logout();
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (_) => const LoginScreen()),
+                    (route) => false,
+              );
+            },
+            child: const Text("Keluar", style: TextStyle(color: Colors.red)),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final user = context.watch<AppProvider>().currentUser;
@@ -42,13 +76,13 @@ class ProfileScreen extends StatelessWidget {
             leading: const Icon(Icons.edit),
             title: const Text('Ganti Username'),
             trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-            onTap: () {}, // Tampilan saja
+            onTap: () => _showDevelopmentNotice(context),
           ),
           ListTile(
             leading: const Icon(Icons.lock),
             title: const Text('Ganti Password'),
             trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-            onTap: () {}, // Tampilan saja
+            onTap: () => _showDevelopmentNotice(context),
           ),
           const SizedBox(height: 40),
           ElevatedButton.icon(
@@ -59,14 +93,7 @@ class ProfileScreen extends StatelessWidget {
             ),
             icon: const Icon(Icons.logout),
             label: const Text('Keluar'),
-            onPressed: () {
-              context.read<AppProvider>().logout();
-              Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(builder: (_) => const LoginScreen()),
-                    (route) => false,
-              );
-            },
+            onPressed: () => _showLogoutDialog(context),
           )
         ],
       ),

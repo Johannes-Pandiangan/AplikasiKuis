@@ -31,7 +31,7 @@ class KuisApp extends StatelessWidget {
           seedColor: const Color(0xFFFFCA08),
           primary: const Color(0xFFFFCA08),
         ),
-        fontFamily: 'EduQLDHand',
+        fontFamily: 'PlayfairDisplay',
       ),
       darkTheme: ThemeData(
         brightness: Brightness.dark,
@@ -40,7 +40,7 @@ class KuisApp extends StatelessWidget {
           seedColor: const Color(0xFFFFCA08),
           primary: const Color(0xFFFFCA08),
         ),
-        fontFamily: 'EduQLDHand',
+        fontFamily: 'PlayfairDisplay',
       ),
       home: const LoginScreen(),
     );
