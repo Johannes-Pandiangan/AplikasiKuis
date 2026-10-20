@@ -52,10 +52,7 @@ class AppProvider with ChangeNotifier {
   String get currentCategory => _currentCategory;
 
   // Data dummy riwayat kuis
-  List<QuizHistory> quizHistory = [
-    QuizHistory(category: "Bahasa Indonesia", date: DateTime.now().subtract(const Duration(days: 1)), score: 90),
-    QuizHistory(category: "Umum", date: DateTime.now().subtract(const Duration(days: 2)), score: 80),
-  ];
+  List<QuizHistory> quizHistory = [];
 
   // Data dummy 10 soal Matematika
   List<Question> mathQuestions = [
