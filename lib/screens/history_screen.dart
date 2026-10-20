@@ -7,6 +7,7 @@ class HistoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Membaca data riwayat dari provider
     final history = context.watch<AppProvider>().quizHistory;
 
     return Scaffold(
@@ -14,7 +15,27 @@ class HistoryScreen extends StatelessWidget {
         title: const Text('Riwayat Kuis'),
         automaticallyImplyLeading: false,
       ),
-      body: ListView.builder(
+      // Pengecekan apakah data kosong
+      body: history.isEmpty
+          ? Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.history_toggle_off, size: 80, color: Colors.grey.shade400),
+            const SizedBox(height: 16),
+            const Text(
+              "Belum ada riwayat kuis",
+              style: TextStyle(fontSize: 18, color: Colors.grey, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 8),
+            const Text(
+              "Ayo mulai kuis pertamamu!",
+              style: TextStyle(fontSize: 14, color: Colors.grey),
+            ),
+          ],
+        ),
+      )
+          : ListView.builder(
         itemCount: history.length,
         itemBuilder: (context, index) {
           final item = history[index];

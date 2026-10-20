@@ -10,6 +10,21 @@ class ResultScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final provider = context.read<AppProvider>();
 
+    // Menentukan pesan dan warna dinamis berdasarkan skor
+    String feedbackText;
+    Color feedbackColor;
+
+    if (provider.score >= 80) {
+      feedbackText = "Luar Biasa";
+      feedbackColor = Colors.green;
+    } else if (provider.score >= 50) {
+      feedbackText = "Kerja Bagus";
+      feedbackColor = Colors.orange;
+    } else {
+      feedbackText = "Jangan Menyerah";
+      feedbackColor = Colors.red;
+    }
+
     return Scaffold(
       body: Center(
         child: Padding(
@@ -18,8 +33,8 @@ class ResultScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "Kerja Bagus, ${provider.currentUser?.name}!",
-                style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                "$feedbackText, ${provider.currentUser?.name}!",
+                style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold, color: feedbackColor),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 20),
@@ -28,9 +43,9 @@ class ResultScreen extends StatelessWidget {
               Text(
                 "${provider.score}",
                 style: TextStyle(
-                  fontSize: 60,
+                  fontSize: 80,
                   fontWeight: FontWeight.bold,
-                  color: Theme.of(context).primaryColor,
+                  color: Theme.of(context).colorScheme.primary,
                 ),
               ),
               const SizedBox(height: 40),
