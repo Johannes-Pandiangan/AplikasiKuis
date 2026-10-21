@@ -16,7 +16,8 @@ class HistoryScreen extends StatelessWidget {
         automaticallyImplyLeading: false,
       ),
       // Pengecekan apakah data kosong
-      body: history.isEmpty
+      body: SafeArea(
+        child: history.isEmpty
           ? Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -52,6 +53,7 @@ class HistoryScreen extends StatelessWidget {
             ),
           );
         },
+      ),
       ),
     );
   }

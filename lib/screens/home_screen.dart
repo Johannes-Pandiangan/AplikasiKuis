@@ -21,7 +21,8 @@ class HomeScreen extends StatelessWidget {
         title: const Text('Pilih Topik Kuis'),
         automaticallyImplyLeading: false,
       ),
-      body: Padding(
+      body: SafeArea(
+        child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: GridView.builder(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -61,6 +62,7 @@ class HomeScreen extends StatelessWidget {
             );
           },
         ),
+      ),
       ),
     );
   }

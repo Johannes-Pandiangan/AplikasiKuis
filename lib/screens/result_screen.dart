@@ -26,7 +26,8 @@ class ResultScreen extends StatelessWidget {
     }
 
     return Scaffold(
-      body: Center(
+      body: SafeArea(
+        child: Center(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Column(
@@ -56,6 +57,7 @@ class ResultScreen extends StatelessWidget {
             ],
           ),
         ),
+      ),
       ),
     );
   }

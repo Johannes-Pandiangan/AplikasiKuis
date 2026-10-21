@@ -66,7 +66,8 @@ class ProfileScreen extends StatelessWidget {
           )
         ],
       ),
-      body: ListView(
+      body: SafeArea(
+        child: ListView(
         padding: const EdgeInsets.all(16.0),
         children: [
           const CircleAvatar(radius: 50, child: Icon(Icons.person, size: 50)),
@@ -106,6 +107,7 @@ class ProfileScreen extends StatelessWidget {
             onPressed: () => _showLogoutDialog(context),
           )
         ],
+      ),
       ),
     );
   }
