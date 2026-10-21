@@ -22,6 +22,5 @@
 - **Credit Aset:**
     - Logo Kuis: Google Foto: https://play-lh.googleusercontent.com/TXCZ-XP9vNGEcpDprCP4jjPHmEB9oN22weg9krWpVcguT1C555mP3vDxVjLcFA5cUL6plhIjQ06JECSh4deSMA
     - Font: Edu QLD Hand by Google Fonts: https://fonts.google.com/specimen/Edu+QLD+Hand?preview.script=Latn
-- **Screenshot Aplikasi:**
-  *(Masukkan screenshot Login, Beranda, Pengerjaan Kuis, dan Profil Anda di sini dengan format `![Nama](link_gambar)`)*
-- **Link Video Presentasi:** [Isi link Google Drive video presentasi Anda di sini]
+- **Screenshot Aplikasi:** https://drive.google.com/drive/folders/180gejDZrzSlWiFcYkMDOuBuoBlEkKJ_X?usp=sharing
+- **Link Video Presentasi:** https://drive.google.com/file/d/1u_b5OEx7FXylqIwZLrC3GjX6tv3qGZue/view?usp=sharing
